@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Innofocus Photonics — Investor Presentation</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/theme/black.css">
+<style>
+  /* ── Innofocus colour palette ── */
+  :root {
+    --blue:  #204ce5;
+    --dark:  #112337;
+    --gold:  #FFB236;
+    --light: #c8d8ff;
+    --white: #ffffff;
+    --card:  #1a3060;
+  }
+
+  .reveal-viewport { background: var(--dark); }
+  .reveal .slides section { text-align: left; }
+
+  /* Typography */
+  .reveal h1, .reveal h2, .reveal h3 {
+    color: var(--white);
+    text-transform: none;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+  }
+  .reveal p, .reveal li { color: var(--light); font-size: 0.82em; line-height: 1.55; }
+  .reveal ul { list-style: none; padding: 0; margin: 0; }
+  .reveal ul li::before { content: "•  "; color: var(--gold); }
+  .reveal ul li { margin-bottom: 0.45em; }
+
+  /* Gold accent bar (left side) */
+  .gold-bar {
+    position: absolute; left: 0; top: 0;
+    width: 6px; height: 100%;
+    background: var(--gold);
+  }
+
+  /* Blue header strip */
+  .blue-header {
+    background: var(--blue);
+    margin: -0.5em -0.5em 0.7em -0.5em;
+    padding: 0.5em 1em;
+    border-bottom: 4px solid var(--gold);
+  }
+  .blue-header h2 { color: var(--white); margin: 0; font-size: 1.1em; }
+  .blue-header .sub { color: var(--light); font-size: 0.6em; margin-top: 2px; }
+
+  /* Cards */
+  .card {
+    background: var(--card);
+    border-left: 5px solid var(--gold);
+    border-radius: 4px;
+    padding: 0.6em 0.9em;
+    margin-bottom: 0.5em;
+  }
+  .card-title { color: var(--gold); font-weight: 700; font-size: 0.78em; margin-bottom: 0.3em; }
+  .card p { color: var(--light); font-size: 0.72em; margin: 0; }
+
+  /* Two-column layout */
+  .cols { display: flex; gap: 1em; align-items: flex-start; }
+  .col  { flex: 1; }
+
+  /* Stat boxes */
+  .stat-box {
+    background: var(--blue);
+    border-radius: 6px;
+    text-align: center;
+    padding: 0.7em 0.4em;
+  }
+  .stat-box .big { font-size: 1.6em; font-weight: 800; color: var(--gold); line-height: 1; }
+  .stat-box .label { font-size: 0.6em; color: var(--light); margin-top: 0.2em; }
+
+  /* Product card */
+  .product-card {
+    background: var(--card);
+    border-radius: 6px;
+    text-align: center;
+    padding: 0.5em;
+    flex: 1;
+  }
+  .product-card img { width: 100%; height: 120px; object-fit: cover; border-radius: 4px; }
+  .product-card .name { color: var(--gold); font-size: 0.65em; font-weight: 700; margin-top: 0.4em; }
+
+  /* Timeline */
+  .timeline-row { display: flex; align-items: flex-start; margin-bottom: 0.45em; gap: 0.7em; }
+  .timeline-year {
+    background: var(--blue); color: var(--white);
+    font-weight: 700; font-size: 0.75em;
+    min-width: 52px; text-align: center;
+    padding: 0.25em 0; border-radius: 3px;
+    flex-shrink: 0; margin-top: 1px;
+  }
+  .timeline-text { color: var(--light); font-size: 0.72em; line-height: 1.4; }
+
+  /* Table */
+  .fin-table { width: 100%; border-collapse: collapse; font-size: 0.72em; }
+  .fin-table th { background: var(--blue); color: var(--white); padding: 0.45em 0.6em; text-align: center; }
+  .fin-table td { padding: 0.4em 0.6em; text-align: center; color: var(--dark); }
+  .fin-table tr:nth-child(even) td { background: #dce8ff; }
+  .fin-table tr:nth-child(odd)  td { background: #eef3ff; }
+  .fin-table td:first-child { text-align: left; font-weight: 700; }
+
+  /* Use of funds row */
+  .fund-row { display: flex; gap: 0.6em; align-items: stretch; margin-bottom: 0.5em; }
+  .fund-pct {
+    background: var(--blue); color: var(--white);
+    min-width: 64px; text-align: center;
+    border-radius: 4px; padding: 0.3em 0.2em;
+    flex-shrink: 0;
+  }
+  .fund-pct .pct  { font-size: 1.3em; font-weight: 800; color: var(--gold); line-height: 1.1; }
+  .fund-pct .amt  { font-size: 0.6em; color: var(--light); }
+  .fund-body { background: #dce8ff; border-radius: 4px; padding: 0.35em 0.7em; flex: 1; }
+  .fund-body .ft  { font-weight: 700; color: var(--dark); font-size: 0.75em; }
+  .fund-body .fd  { color: #334; font-size: 0.68em; }
+
+  /* Partner logos */
+  .partner-row { display: flex; gap: 0.8em; align-items: center; flex-wrap: wrap; margin-top: 0.5em; }
+  .partner-row img { height: 38px; object-fit: contain; filter: brightness(0) invert(1); opacity: 0.85; }
+
+  /* Light-background slides */
+  .light { background: #f0f4ff !important; }
+  .light h2, .light h3 { color: var(--dark) !important; }
+  .light p, .light li   { color: #334 !important; }
+  .light .timeline-text { color: #334 !important; }
+  .light ul li::before  { color: var(--blue) !important; }
+
+  /* Cover */
+  .cover-left { padding: 1.2em 1.5em 1.2em 1.5em; }
+  .cover-left .eyebrow { color: var(--gold); font-size: 0.65em; letter-spacing: 1px; margin-bottom: 0.3em; }
+  .cover-left h1 { font-size: 1.5em; line-height: 1.15; margin: 0 0 0.4em 0; }
+  .cover-left .tagline { color: var(--light); font-size: 0.72em; margin-bottom: 1em; }
+  .cover-left .confidential { color: #7a9ccc; font-size: 0.55em; margin-top: 2em; }
+
+  /* Section title slide */
+  .section-title h1 { font-size: 2em; margin-top: 1.5em; }
+  .section-title .sub { color: var(--gold); font-size: 0.75em; }
+
+  /* Slide base layout padding */
+  .reveal .slides section.padded { padding: 0.4em 0.6em; }
+
+  /* Slide number */
+  .reveal .slide-number { color: var(--gold); }
+</style>
+</head>
+<body>
+<div class="reveal">
+<div class="slides">
+
+<!-- ═══════════════════════════════════════════════════════════════════════ -->
+<!-- SLIDE 1 — COVER                                                         -->
+<!-- ═══════════════════════════════════════════════════════════════════════ -->
+<section style="padding:0; background:var(--dark);">
+  <div style="display:flex; height:100vh; max-height:700px;">
+    <!-- Left panel -->
+    <div class="cover-left" style="width:52%; background:var(--dark); display:flex; flex-direction:column; justify-content:center; border-right:6px solid var(--gold);">
+      <img src="imgs/logo.png" style="height:52px; width:auto; margin-bottom:1.4em; object-fit:contain; object-position:left;">
+      <div class="eyebrow">INVESTOR PRESENTATION &nbsp;·&nbsp; MARCH 2026</div>
+      <h1>Innofocus Photonics<br>Technology</h1>
+      <div class="tagline">Precision laser manufacturing solutions<br>for advanced photonic components</div>
+      <div class="confidential">Confidential &nbsp;·&nbsp; Not for distribution</div>
+    </div>
+    <!-- Right panel — hero image -->
+    <div style="flex:1; overflow:hidden;">
+      <img src="imgs/hero_slider.png" style="width:100%; height:100%; object-fit:cover; object-position:center;">
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════════════ -->
+<!-- SLIDE 2 — EXECUTIVE SUMMARY                                             -->
+<!-- ═══════════════════════════════════════════════════════════════════════ -->
+<section class="padded light">
+  <div class="blue-header">
+    <h2>Executive Summary</h2>
+    <div class="sub">Precision photonics manufacturing at the intersection of optics, lasers and AI</div>
+  </div>
+  <div class="cols">
+    <div class="col">
+      <ul>
+        <li>Melbourne-based deep-tech company founded by world-leading photonics researchers</li>
+        <li>Core platform: <strong>nanoLAB</strong> — AI-guided femtosecond laser writing system</li>
+        <li>Products: nanoFACTORY, HoloView, UFBGs, cooling film, nanoLAB</li>
+        <li>Markets: telecommunications, sensing, biomedical, defence</li>
+        <li>Active partnerships: RMIT, UCLA, Coherent, Olympus, Swinburne</li>
+        <li>Seeking <strong style="color:var(--blue)">Series A — A$8M</strong> to scale manufacturing and accelerate commercialisation</li>
+      </ul>
+    </div>
+    <div class="col" style="text-align:center;">
+      <img src="imgs/nanolab.png" style="width:100%; border-radius:8px; object-fit:cover; max-height:280px;">
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════════════ -->
+<!-- SLIDE 3 — PROBLEM & OPPORTUNITY                                         -->
+<!-- ═══════════════════════════════════════════════════════════════════════ -->
+<section class="padded" style="background:var(--dark);">
+  <div style="padding-left:14px; border-left: 6px solid var(--gold); margin-bottom:0.6em;">
+    <h2 style="margin:0; font-size:1.15em;">Problem &amp; Opportunity</h2>
+    <div style="color:var(--gold); font-size:0.62em;">A multi-billion-dollar gap in precision photonic manufacturing</div>
+  </div>
+  <div class="cols">
+    <div class="col">
+      <div style="background:var(--blue); color:var(--white); padding:0.4em 0.7em; border-radius:4px 4px 0 0; font-weight:700; font-size:0.72em;">THE PROBLEM</div>
+      <div style="background:var(--card); padding:0.7em; border-radius:0 0 4px 4px;">
+        <ul>
+          <li>Photonic components require sub-micron precision</li>
+          <li>Conventional methods: slow, expensive, low yield</li>
+          <li>Custom components have 12–20 week lead times</li>
+          <li>No scalable platform for 3D photonic structures</li>
+        </ul>
+      </div>
+    </div>
+    <div class="col">
+      <div style="background:var(--gold); color:var(--dark); padding:0.4em 0.7em; border-radius:4px 4px 0 0; font-weight:700; font-size:0.72em;">THE OPPORTUNITY</div>
+      <div style="background:var(--card); padding:0.7em; border-radius:0 0 4px 4px;">
+        <ul>
+          <li>Global photonics market: &gt;$900B by 2030 (12% CAGR)</li>
+          <li>Fibre sensing market: $4B+ growing 15% annually</li>
+          <li>Demand surge in LiDAR, AR/VR, quantum &amp; biomedical</li>
+          <li>Australia positioned with world-class research base</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════════════ -->
+<!-- SLIDE 4 — OUR SOLUTION                                                  -->
+<!-- ═══════════════════════════════════════════════════════════════════════ -->
+<section class="padded light">
+  <div class="blue-header">
+    <h2>Our Solution — nanoLAB Platform</h2>
+    <div class="sub">AI-guided femtosecond laser writing for photonic manufacturing</div>
+  </div>
+  <div class="cols">
+    <div class="col">
+      <img src="imgs/nanolab.png" style="width:100%; border-radius:8px; object-fit:cover; max-height:260px;">
+    </div>
+    <div class="col">
+      <ul>
+        <li><strong>WHAT:</strong> Turnkey laser writing system for 3D photonic micro-structures</li>
+        <li><strong>HOW:</strong> Femtosecond pulses + adaptive optics + ML process control</li>
+        <li><strong>UNIQUE:</strong> Sub-100 nm resolution in 3D — no clean-room required</li>
+        <li>nanoFACTORY iQPC: in-situ quality &amp; process control</li>
+        <li>nanoFACTORY rFBG: rapid FBG inscription at production speed</li>
+        <li>HoloView: real-time holographic wavefront sensing</li>
+        <li><strong>OUTCOME:</strong> 10× faster, 3× lower cost vs. conventional methods</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════════════ -->
+<!-- SLIDE 5 — PRODUCT PORTFOLIO                                             -->
+<!-- ═══════════════════════════════════════════════════════════════════════ -->
+<section class="padded" style="background:var(--dark);">
+  <div style="padding-left:14px; border-left:6px solid var(--gold); margin-bottom:0.6em;">
+    <h2 style="margin:0; font-size:1.15em;">Product Portfolio</h2>
+    <div style="color:var(--gold); font-size:0.62em;">Five integrated products across manufacturing, sensing and visualisation</div>
+  </div>
+  <div style="display:flex; gap:0.6em;">
+    <div class="product-card">
+      <img src="imgs/nanoFACTORY_iQPC.png" alt="nanoFACTORY iQPC">
+      <div class="name">nanoFACTORY iQPC</div>
+      <p style="font-size:0.6em; color:var(--light); margin-top:0.3em;">In-situ quality &amp; process control</p>
+    </div>
+    <div class="product-card">
+      <img src="imgs/nanoFACTORY_rFBG.png" alt="nanoFACTORY rFBG">
+      <div class="name">nanoFACTORY rFBG</div>
+      <p style="font-size:0.6em; color:var(--light); margin-top:0.3em;">Rapid FBG inscription system</p>
+    </div>
+    <div class="product-card">
+      <img src="imgs/h3d.png" alt="HoloView H3D">
+      <div class="name">HoloView H3D</div>
+      <p style="font-size:0.6em; color:var(--light); margin-top:0.3em;">3D holographic wavefront sensor</p>
+    </div>
+    <div class="product-card">
+      <img src="imgs/ufbg.png" alt="UFBGs">
+      <div class="name">UFBG Sensors</div>
+      <p style="font-size:0.6em; color:var(--light); margin-top:0.3em;">Ultra-weak fibre Bragg gratings</p>
+    </div>
+    <div class="product-card">
+      <img src="imgs/nanolab.png" alt="nanoLAB">
+      <div class="name">nanoLAB</div>
+      <p style="font-size:0.6em; color:var(--light); margin-top:0.3em;">Complete laser writing platform</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════════════ -->
+<!-- SLIDE 6 — TECHNOLOGY                                                    -->
+<!-- ═══════════════════════════════════════════════════════════════════════ -->
+<section class="padded light">
+  <div class="blue-header">
+    <h2>Technology Deep-Dive</h2>
+    <div class="sub">Proprietary stack: hardware + adaptive optics + ML + software</div>
+  </div>
+  <div class="cols">
+    <div class="col">
+      <div class="card">
+        <div class="card-title">FEMTOSECOND LASER WRITING</div>
+        <p>Ultrashort pulses (&lt;300 fs) enable non-thermal, 3D material modification in glass, polymer and crystal — no masking or etching required.</p>
+      </div>
+      <div class="card">
+        <div class="card-title">ADAPTIVE OPTICS</div>
+        <p>HoloView wavefront sensor corrects aberrations in real time, enabling diffraction-limited focus deep inside substrates.</p>
+      </div>
+      <div class="card">
+        <div class="card-title">AI PROCESS CONTROL</div>
+        <p>ML models predict and compensate for material variation. Closed-loop feedback ensures ≥99% yield at production scale.</p>
+      </div>
+    </div>
+    <div class="col">
+      <img src="imgs/holoview.png" style="width:100%; border-radius:8px; object-fit:cover; max-height:300px;">
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════════════ -->
+<!-- SLIDE 7 — MARKET                                                        -->
+<!-- ═══════════════════════════════════════════════════════════════════════ -->
+<section class="padded" style="background:var(--dark);">
+  <div style="padding-left:14px; border-left:6px solid var(--gold); margin-bottom:0.7em;">
+    <h2 style="margin:0; font-size:1.15em;">Market Opportunity</h2>
+    <div style="color:var(--gold); font-size:0.62em;">Three high-growth verticals with immediate product-market fit</div>
+  </div>
+  <div style="display:flex; gap:0.8em;">
+    <div style="flex:1; background:var(--blue); border-radius:6px; padding:0.8em; border-top:5px solid var(--gold);">
+      <div style="color:var(--white); font-weight:700; font-size:0.78em; margin-bottom:0.4em;">Fibre Sensing &amp; FBGs</div>
+      <div style="color:var(--gold); font-size:1.8em; font-weight:800; line-height:1;">$4B+</div>
+      <div style="color:var(--light); font-size:0.62em; margin:0.2em 0 0.5em;">15% CAGR</div>
+      <p style="font-size:0.65em; margin:0;">Structural health monitoring, oil &amp; gas, aerospace, civil infrastructure</p>
+    </div>
+    <div style="flex:1; background:var(--blue); border-radius:6px; padding:0.8em; border-top:5px solid var(--gold);">
+      <div style="color:var(--white); font-weight:700; font-size:0.78em; margin-bottom:0.4em;">Telecom Photonics</div>
+      <div style="color:var(--gold); font-size:1.8em; font-weight:800; line-height:1;">$12B+</div>
+      <div style="color:var(--light); font-size:0.62em; margin:0.2em 0 0.5em;">10% CAGR</div>
+      <p style="font-size:0.65em; margin:0;">Data centre interconnects, 5G backhaul, DWDM optical networks</p>
+    </div>
+    <div style="flex:1; background:var(--blue); border-radius:6px; padding:0.8em; border-top:5px solid var(--gold);">
+      <div style="color:var(--white); font-weight:700; font-size:0.78em; margin-bottom:0.4em;">Biomedical Optics</div>
+      <div style="color:var(--gold); font-size:1.8em; font-weight:800; line-height:1;">$6B+</div>
+      <div style="color:var(--light); font-size:0.62em; margin:0.2em 0 0.5em;">13% CAGR</div>
+      <p style="font-size:0.65em; margin:0;">Endoscopy, OCT imaging, implantable fibre optic sensors</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════════════ -->
+<!-- SLIDE 8 — TRACTION                                                      -->
+<!-- ═══════════════════════════════════════════════════════════════════════ -->
+<section class="padded light">
+  <div class="blue-header">
+    <h2>Traction &amp; Milestones</h2>
+    <div class="sub">Revenue-generating with validated technology and pilot customers</div>
+  </div>
+  <div class="timeline-row"><div class="timeline-year">2020</div><div class="timeline-text">Company founded; nanoLAB v1 installed at RMIT University</div></div>
+  <div class="timeline-row"><div class="timeline-year">2021</div><div class="timeline-text">First commercial FBG sales; HoloView prototype demonstrated</div></div>
+  <div class="timeline-row"><div class="timeline-year">2022</div><div class="timeline-text">UCLA research partnership; cooling film technology validated</div></div>
+  <div class="timeline-row"><div class="timeline-year">2023</div><div class="timeline-text">nanoFACTORY iQPC launched; Olympus pilot agreement signed</div></div>
+  <div class="timeline-row"><div class="timeline-year">2024</div><div class="timeline-text">6 commercial units shipped; A$1.2M ARR achieved</div></div>
+  <div class="timeline-row"><div class="timeline-year">2025</div><div class="timeline-text">Series A raise initiated; 3× production capacity expansion planned</div></div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════════════ -->
+<!-- SLIDE 9 — BUSINESS MODEL                                                -->
+<!-- ═══════════════════════════════════════════════════════════════════════ -->
+<section class="padded" style="background:var(--dark);">
+  <div style="padding-left:14px; border-left:6px solid var(--gold); margin-bottom:0.6em;">
+    <h2 style="margin:0; font-size:1.15em;">Business Model</h2>
+    <div style="color:var(--gold); font-size:0.62em;">Hardware + recurring service revenue with high switching costs</div>
+  </div>
+  <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.6em;">
+    <div class="card">
+      <div class="card-title">CAPITAL EQUIPMENT SALES</div>
+      <p>nanoLAB / nanoFACTORY systems<br>ASP: A$250K – A$1.2M per unit</p>
+    </div>
+    <div class="card">
+      <div class="card-title">CONSUMABLES &amp; SERVICE PLAN</div>
+      <p>Annual maintenance + consumables<br>~20% of system price per year</p>
+    </div>
+    <div class="card">
+      <div class="card-title">CONTRACT MANUFACTURING</div>
+      <p>Fee-per-component production runs<br>Gross margin: 55–65%</p>
+    </div>
+    <div class="card">
+      <div class="card-title">IP LICENSING</div>
+      <p>FBG process IP, wavefront sensing<br>Royalty or upfront licence agreements</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════════════ -->
+<!-- SLIDE 10 — FINANCIALS                                                   -->
+<!-- ═══════════════════════════════════════════════════════════════════════ -->
+<section class="padded light">
+  <div class="blue-header">
+    <h2>Financial Projections</h2>
+    <div class="sub">Path to profitability by FY2027 with Series A deployment</div>
+  </div>
+  <table class="fin-table">
+    <thead>
+      <tr><th style="text-align:left;">Metric</th><th>FY2024</th><th>FY2025E</th><th>FY2026E</th><th>FY2027E</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Revenue</td><td>A$1.2M</td><td>A$3.1M</td><td>A$7.8M</td><td>A$18M</td></tr>
+      <tr><td>Gross Margin</td><td>48%</td><td>52%</td><td>57%</td><td>62%</td></tr>
+      <tr><td>EBITDA</td><td>–A$0.8M</td><td>–A$0.4M</td><td>A$1.1M</td><td>A$5.4M</td></tr>
+      <tr><td>Headcount</td><td>12</td><td>18</td><td>28</td><td>42</td></tr>
+    </tbody>
+  </table>
+  <div style="margin-top:0.9em; display:flex; gap:0.6em;">
+    <div class="stat-box" style="flex:1;"><div class="big">A$8M</div><div class="label">Series A Target</div></div>
+    <div class="stat-box" style="flex:1;"><div class="big">62%</div><div class="label">Target Gross Margin (FY27)</div></div>
+    <div class="stat-box" style="flex:1;"><div class="big">15×</div><div class="label">Revenue Growth (FY24→FY27)</div></div>
+    <div class="stat-box" style="flex:1;"><div class="big">FY27</div><div class="label">EBITDA Break-even</div></div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════════════ -->
+<!-- SLIDE 11 — TEAM & PARTNERS                                             -->
+<!-- ═══════════════════════════════════════════════════════════════════════ -->
+<section class="padded" style="background:var(--dark);">
+  <div style="padding-left:14px; border-left:6px solid var(--gold); margin-bottom:0.6em;">
+    <h2 style="margin:0; font-size:1.15em;">Team &amp; Partners</h2>
+    <div style="color:var(--gold); font-size:0.62em;">World-class photonics researchers and global industry partners</div>
+  </div>
+  <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.5em; margin-bottom:0.7em;">
+    <div class="card">
+      <div class="card-title">A/Prof. Baohua Jia — CEO &amp; Co-founder</div>
+      <p>ARC Future Fellow; 20+ years photonics R&amp;D; expert in nonlinear optics and nanofabrication</p>
+    </div>
+    <div class="card">
+      <div class="card-title">Dr. Xiaoming Wen — CTO &amp; Co-founder</div>
+      <p>Expert in femtosecond laser processing; 50+ peer-reviewed publications in photonics</p>
+    </div>
+    <div class="card">
+      <div class="card-title">Dr. Tze Cheung Lau — Head of Products</div>
+      <p>10 years fibre sensing commercialisation; led multiple product launches in Asia-Pacific</p>
+    </div>
+    <div class="card">
+      <div class="card-title">Mr. James Harrington — CFO</div>
+      <p>Former CFO at venture-backed deep-tech firms; A$50M+ in capital raised across career</p>
+    </div>
+  </div>
+  <div style="color:var(--gold); font-size:0.65em; font-weight:700; margin-bottom:0.4em;">RESEARCH &amp; INDUSTRY PARTNERS</div>
+  <div class="partner-row">
+    <img src="imgs/partner_rmit.png" alt="RMIT">
+    <img src="imgs/partner_ucla.png" alt="UCLA">
+    <img src="imgs/partner_coherent.png" alt="Coherent">
+    <img src="imgs/partner_olympus.png" alt="Olympus">
+    <img src="imgs/partner_swinburne.png" alt="Swinburne">
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════════════ -->
+<!-- SLIDE 12 — USE OF FUNDS                                                 -->
+<!-- ═══════════════════════════════════════════════════════════════════════ -->
+<section class="padded light">
+  <div class="blue-header">
+    <h2>Use of Funds — Series A: A$8M</h2>
+    <div class="sub">Targeted deployment across manufacturing, sales and IP</div>
+  </div>
+  <div class="fund-row">
+    <div class="fund-pct"><div class="pct">40%</div><div class="amt">A$3.2M</div></div>
+    <div class="fund-body"><div class="ft">Manufacturing Scale-up</div><div class="fd">2nd nanoLAB production unit; cleanroom-free fab facility fit-out in Melbourne</div></div>
+  </div>
+  <div class="fund-row">
+    <div class="fund-pct"><div class="pct">25%</div><div class="amt">A$2.0M</div></div>
+    <div class="fund-body"><div class="ft">Sales &amp; Market Expansion</div><div class="fd">Asia-Pacific and EU sales team; distributor agreements; trade show presence</div></div>
+  </div>
+  <div class="fund-row">
+    <div class="fund-pct"><div class="pct">20%</div><div class="amt">A$1.6M</div></div>
+    <div class="fund-body"><div class="ft">R&amp;D — Next-gen Platform</div><div class="fd">nanoFACTORY v3 (AI core), HoloView H3D commercial launch, cooling film scale-up</div></div>
+  </div>
+  <div class="fund-row">
+    <div class="fund-pct"><div class="pct">15%</div><div class="amt">A$1.2M</div></div>
+    <div class="fund-body"><div class="ft">IP &amp; Regulatory</div><div class="fd">Patent portfolio expansion in US, EU, CN; CE/FDA device clearance pathways</div></div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════════════ -->
+<!-- SLIDE 13 — CLOSING                                                      -->
+<!-- ═══════════════════════════════════════════════════════════════════════ -->
+<section style="padding:0; background:var(--dark);">
+  <div style="display:flex; height:100vh; max-height:700px;">
+    <div class="cover-left" style="width:52%; background:var(--dark); display:flex; flex-direction:column; justify-content:center; border-right:6px solid var(--gold);">
+      <img src="imgs/logo.png" style="height:44px; width:auto; margin-bottom:1.2em; object-fit:contain; object-position:left;">
+      <h1 style="font-size:1.35em; line-height:1.2; margin-bottom:0.5em;">Join us in shaping the future of precision photonics.</h1>
+      <p style="font-size:0.72em; color:var(--light); margin-bottom:1.2em;">We are raising A$8M Series A to accelerate manufacturing scale-up and global commercialisation of our nanoLAB platform.</p>
+      <div style="border-top:2px solid var(--gold); padding-top:0.8em;">
+        <div style="color:var(--gold); font-size:0.62em; font-weight:700; margin-bottom:0.5em;">CONTACT US</div>
+        <div style="color:var(--white); font-size:0.72em; line-height:1.9;">
+          🌐 www.innofocus.com.au<br>
+          ✉️ info@innofocus.com.au<br>
+          📍 Melbourne, Victoria, Australia
+        </div>
+      </div>
+    </div>
+    <div style="flex:1; overflow:hidden;">
+      <img src="imgs/hero_slider.png" style="width:100%; height:100%; object-fit:cover; object-position:center;">
+    </div>
+  </div>
+</section>
+
+</div><!-- /slides -->
+</div><!-- /reveal -->
+
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.js"></script>
+<script>
+  Reveal.initialize({
+    hash: true,
+    slideNumber: true,
+    controls: true,
+    progress: true,
+    transition: 'slide',
+    backgroundTransition: 'fade',
+    width: 1280,
+    height: 720,
+    margin: 0.04,
+  });
+</script>
+</body>
+</html>
